@@ -1,0 +1,22 @@
+{
+  "name": "webpack-server-dev-example",
+  "version": "0.0.1",
+  "description": "Example of server-dev-webpack-plugin",
+  "main": "server.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "dev": "npm run clean && webpack --mode development --config webpack.config.dev.srv.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "compression": "^1.7.2",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-merge": "^4.1.2"
+  }
+}

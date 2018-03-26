@@ -1,0 +1,30 @@
+{
+  "name": "server-dev-webpack-plugin",
+  "version": "0.0.1",
+  "description": "Help you to develop nodejs server applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walkthunder/webpack-server-dev.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "server",
+    "development"
+  ],
+  "author": "walkthunder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/walkthunder/webpack-server-dev/issues"
+  },
+  "homepage": "https://github.com/walkthunder/webpack-server-dev#readme",
+  "dependencies": {
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+  }
+}
