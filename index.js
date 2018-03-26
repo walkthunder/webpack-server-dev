@@ -7,21 +7,21 @@ function onStdOut(data) {
 }
 
 /**
- * Get default file name of entry configuration of compiler
- * Note that if there are multiple entries, and no fileName is assigned,
- * this function would return the fileName of the first entry
+ * Get file name of entry configuration of compiler
+ * Note that if there are multiple entries, and no starter is assigned,
+ * this function would return the name of the first entry
  * @param {*} compiler - Webpack compiler
- * @param {String|*} fileName
+ * @param {} starter - Name of the file to start as server
  * @return {String|undefined}
  */
-function getEntryName(compiler, fileName) {
+function getEntryName(compiler, starter) {
   if (compiler && compiler.options && compiler.options.entry) {
     var entry = compiler.options.entry;
     for (let key in entry) {
       if (entry.hasOwnProperty(key)) {
-        if (fileName) {
-          if (fileName === key) {
-            return fileName
+        if (starter) {
+          if (starter === key) {
+            return starter
           }
         } else {
           return key;
@@ -33,10 +33,13 @@ function getEntryName(compiler, fileName) {
 }
 
 module.exports = class ServerDevPlugin {
-  constructor() {
+  constructor(options) {
     this.chunkVersions = {};
     this.server;
     this.serverPath;
+    if (options) {
+      this.starter = options.starter;
+    }
   }
 
   restartServer() {
@@ -59,7 +62,7 @@ module.exports = class ServerDevPlugin {
   apply(compiler) {
     var self = this;
     var output = compiler.options.output;
-    this.serverPath = path.join(output.path, output.filename).replace(/\[name\]/i, getEntryName(compiler));
+    this.serverPath = path.join(output.path, output.filename).replace(/\[name\]/i, getEntryName(compiler, self.starter));
     compiler.plugin('emit', function(compilation, callback) {
       var changedChunks = compilation.chunks.filter(function(chunk) {
         var oldVersion = self.chunkVersions[chunk.name];
