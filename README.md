@@ -32,13 +32,12 @@ When you run `npm run dev`, your code would be watched and your server would run
 ### Description
  This plugin actually auto starts the webpack output entry as a server. And keep listening to the `emit` event of  `compiler`. If the output chunks change is detected, the plugin would restart the server.
 
- ### Configuration
+### Configuration
+This plugin accepts an `options` object.
 
- This plugin accepts an `options` object.
- #### `options.starter`
- If there are more than one entries, `options.starter` would determine which entry file would be used to start the server.
-
- If it's empty, `server-dev-webpack-plugin` would run the first entry as default.
+#### `options.starter`
+If there are more than one entries, `options.starter` would determine which entry file would be used to start the server.
+If it's empty, `server-dev-webpack-plugin` would run the first entry as default.
 
 
 ## Contribute
