@@ -22,8 +22,6 @@
     "url": "https://github.com/walkthunder/webpack-server-dev/issues"
   },
   "homepage": "https://github.com/walkthunder/webpack-server-dev#readme",
-  "dependencies": {
-    "lodash": "^4.17.5"
-  },
+  "dependencies": {},
   "devDependencies": {}
 }

@@ -1,5 +1,4 @@
 let path = require('path');
-let isEmpty = require('lodash').isEmpty;
 let spawn = require('child_process').spawn;
 
 function onStdOut(data) {
@@ -59,21 +58,30 @@ module.exports = class ServerDevPlugin {
     })
   }
 
-  apply(compiler) {
+  _isChunksChanged(chunks) {
     var self = this;
-    var output = compiler.options.output;
-    this.serverPath = path.join(output.path, output.filename).replace(/\[name\]/i, getEntryName(compiler, self.starter));
-    compiler.plugin('emit', function(compilation, callback) {
-      var changedChunks = compilation.chunks.filter(function(chunk) {
+    if (chunks) {
+      var changedChunks = chunks.filter(function(chunk) {
         var oldVersion = self.chunkVersions[chunk.name];
         self.chunkVersions[chunk.name] = chunk.hash;
         return chunk.hash !== oldVersion;
       }.bind(self));
+      if (Array.isArray(changedChunks) && (changedChunks.length === 0)) {
+        return false;
+      }
+      return true;
+    }
+    throw new Error('Invalid chunks');
+  }
 
-      if (!isEmpty(changedChunks)) {
+  apply(compiler) {
+    var self = this;
+    var output = compiler.options.output;
+    self.serverPath = path.join(output.path, output.filename).replace(/\[name\]/i, getEntryName(compiler, self.starter));
+    compiler.plugin('emit', function(compilation, callback) {
+      if (self._isChunksChanged(compilation.chunks)) {
         self.restartServer();
       }
-
       callback()
     });
   }

@@ -11,15 +11,15 @@ app.use(compression());
 
 app.get('/debug', (req, res) => {
   res.status(200).send('hi developer');
-})
+});
 
 app.get('/*', (req, res) => {
   res.status(200).send('hello express - ' + req.originalUrl);
-})
+});
 
 app.listen(port, (err) => {
   if (err) {
-    console.log(err);
+    console.error(err);
   }
   console.log(`Listening at http://localhost:${port}/`);
-})
+});
